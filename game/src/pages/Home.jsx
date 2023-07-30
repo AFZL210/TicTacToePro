@@ -1,15 +1,16 @@
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
 import Button from '../components/Button'
 import Input from '../components/Input';
+import { GameProvider } from '../providers/GameContext';
 
-const Home = () => {
+const Home = (props) => {
 
-    const [dialogBox, setDialogBox] = useState(null);
-    const [difficult, setDifficulty] = useState("easy");
     const toggleDialogBox = (box) => setDialogBox(box);
-    const [username, setUsername] = useState("");
-    const [username2, setUsername2] = useState("");
-    const [roomId, setRoomId] = useState("");
+
+    const {
+        username, username2, setUsername, setUsername2, dialogBox, setDialogBox, setRoomId, roomId, difficult, setDifficulty
+    } = GameProvider();
 
     return (
         <div className='w-[100vw] h-[100vh] bg-[#1e1e20] flex items-center justify-center'>
@@ -47,6 +48,8 @@ const JoinCreateRoom = (props) => {
                 <Input placeholder="username" value={props.username2} setValue={props.setUsername2} />
                 <Button title="Create" />
             </div>
+
+            <div className='mt-5'><Link to={"/room/pvp"}><Button title="Single Device" /></Link></div>
         </div>
     )
 }
@@ -55,7 +58,7 @@ const PlayerVsBot = (props) => {
     return (
         <div className='w-[100%] flex flex-col items-center'>
             <h1>Select Difficulty</h1>
-            <div className='w-[100%] flex flex-col items-center gap-4 mt-[25%]'>
+            <div className='w-[100%] flex flex-col items-center gap-4 mt-[10%]'>
                 <Button title="Easy" />
                 <Button title="Medium" />
                 <Button title="Hard" />
@@ -68,7 +71,7 @@ const BotVsBot = (props) => {
     return (
         <div className='w-[100%] flex flex-col items-center'>
             <h1>Select Difficulty</h1>
-            <div className='w-[100%] flex flex-col items-center gap-4 mt-[25%]'>
+            <div className='w-[100%] flex flex-col items-center gap-4 mt-[10%]'>
                 <Button title="Easy" />
                 <Button title="Medium" />
                 <Button title="Hard" />
