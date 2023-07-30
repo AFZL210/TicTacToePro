@@ -9,12 +9,12 @@ const Home = (props) => {
     const toggleDialogBox = (box) => setDialogBox(box);
 
     const {
-        username, username2, setUsername, setUsername2, dialogBox, setDialogBox, setRoomId, roomId, difficult, setDifficulty
+        username, username2, setUsername, setUsername2, dialogBox, setDialogBox, setRoomId, roomId
     } = GameProvider();
 
     return (
         <div className='w-[100vw] h-[100vh] bg-[#1e1e20] flex items-center justify-center'>
-            <div className='w-[50vw] h-[50vh] flex flex-col relative'>
+            <div className='w-[80vw] md:w-[50vw] h-[50vh] flex flex-col relative'>
                 <h1 className='mx-auto text-2xl font-bold'>TicTacToePro</h1>
                 <div className='w-[100%] h-[100%] flex flex-col items-center gap-5 mt-6'>
                     <Button title="Player vs Player" toggle={toggleDialogBox} togleOption="pvp" type="toggle" />
@@ -59,9 +59,9 @@ const PlayerVsBot = (props) => {
         <div className='w-[100%] flex flex-col items-center'>
             <h1>Select Difficulty</h1>
             <div className='w-[100%] flex flex-col items-center gap-4 mt-[10%]'>
-                <Button title="Easy" />
-                <Button title="Medium" />
-                <Button title="Hard" />
+                <Link to={"/room/pvb/easy"}><Button title="Easy" /></Link>
+                <Link to={"/room/pvb/medium"}><Button title="Medium" /></Link>
+                <Link to={"/room/pvb/hard"}><Button title="Hard" /></Link>
             </div>
         </div>
     )

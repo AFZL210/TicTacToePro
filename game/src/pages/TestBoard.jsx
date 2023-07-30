@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import TicTacToeBoard from '../components/TicTacToeBoard'
+import { TicTacToeBoard } from '../components/TicTacToeBoard'
 
 const TestBoard = () => {
 
