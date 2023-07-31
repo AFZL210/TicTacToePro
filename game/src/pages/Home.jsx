@@ -1,16 +1,23 @@
-import React, { useState } from 'react'
+import React, { useEffect, useCallback } from 'react'
 import { Link } from 'react-router-dom'
 import Button from '../components/Button'
 import Input from '../components/Input';
 import { GameProvider } from '../providers/GameContext';
+import { useSocket } from '../providers/SocketProvider';
 
 const Home = (props) => {
 
+    const { socket } = useSocket();
     const toggleDialogBox = (box) => setDialogBox(box);
-
     const {
         username, username2, setUsername, setUsername2, dialogBox, setDialogBox, setRoomId, roomId
     } = GameProvider();
+
+    useCallback(() => {
+        const handleJoinRoom = () => {
+            socket.emit('join-room', { id: roomId, username });
+        }
+    }, [])
 
     return (
         <div className='w-[100vw] h-[100vh] bg-[#1e1e20] flex items-center justify-center'>
@@ -34,13 +41,27 @@ const Home = (props) => {
 
 const JoinCreateRoom = (props) => {
 
+    const { socket } = useSocket();
+
+    // const handleJoinRoom = () => {
+    //     socket.emit('join-room', {id: props.roomId, username: props.username});
+    // }
+
+    const handleJoinRoom = useCallback(() => {
+        socket.emit('join-room', { id: props.roomId, username: props.username });
+    }, [socket, props.roomId, props.username])
+
+    useEffect(() => {
+        socket.on('join-info', (data) => console.log(data))
+    }, [socket])
+
     return (
         <div className='w-[100%] flex flex-col items-center'>
             <h1>Join Room</h1>
             <div className='w-[100%] flex flex-col items-center gap-4 mt-4'>
                 <Input placeholder="username" value={props.username} setValue={props.setUsername} />
                 <Input placeholder="room id" value={props.roomId} setValue={props.setRoomId} />
-                <Button title="Join" />
+                <Button title="Join" onClickHandler={handleJoinRoom} type="btn" />
             </div>
 
             <h1 className='mt-5'>Create Room</h1>
