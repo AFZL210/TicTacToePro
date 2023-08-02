@@ -4,42 +4,97 @@ import { Server } from "socket.io";
 const app = express();
 const httPort = 5000;
 const wsPort = 5001;
+const RANGE = 1000000;
 
 app.use(cors({ origin: "*" }));
 app.use(express.json());
 const io = new Server({ cors: true });
 
-let playerRoomMapping = [{
-    id: 1,
-    players: []
-}];
+let playerRoomMapping = [];
+const socketRoomMapping = new Map();
+const socketUsernameMapping = new Map();
+
+app.get('/room', (req, res) => {
+    res.json(playerRoomMapping);
+})
+
+app.get('/printmap', (req, res) => {
+    socketRoomMapping.forEach((value, key) => {
+        console.log(key, "-->", value);
+    })
+    res.send("printed");
+})
+
+const generateRandom = (range) => {
+    return Math.floor((Math.random() * range) + 1);
+}
 
 io.on('connection', (socket) => {
-    console.log(socket.id);
 
     socket.on('join-room', (data) => {
         const { id, username } = data;
-        let roomId, roomDetails = 0;
 
-        let n = playerRoomMapping.length;
-        for (let i = 0; i < n; i++) {
-            if (playerRoomMapping[i].id == id) {
-                roomId = i;
-                roomDetails = playerRoomMapping[i];
+        let roomId = playerRoomMapping.findIndex((e) => { return e.id == id });
+
+        if (roomId == -1) socket.emit('join-info', { status: false, msg: "no room found" });
+        else if (playerRoomMapping[roomId].players.length >= 2) socket.emit('join-info', { status: false, msg: "room is full" });
+        else {
+            playerRoomMapping[roomId].players.push(username);
+            socket.join(id);
+            socketRoomMapping.set(socket.id, id);
+            socketUsernameMapping.set(socket.id, username);
+            socket.emit('join-info', { status: true, msg: "joined room", code: 'join', id: id });
+        }
+    });
+
+    socket.on('create-room', (data) => {
+        const { username } = data;
+        let id, idx;
+
+        while (1) {
+            id = generateRandom(RANGE).toString();
+            idx = playerRoomMapping.findIndex((e) => { return e.id == id });
+            if (idx == -1) {
+                idx = playerRoomMapping.length;
                 break;
             }
         }
 
-        console.log(data, roomDetails)
+        socket.join(id);
+        playerRoomMapping.push({ id: id, players: [username] });
+        socketRoomMapping.set(socket.id, id);
+        socketUsernameMapping.set(socket.id, username);
+        socket.emit('join-info', { status: true, msg: 'created room', code: 'create', id: id })
+    });
 
-        if (roomDetails == 0) socket.emit('join-info', { status: true, msg: "no room found" });
-        else if (roomDetails.players.length >= 2) socket.emit('join-info', { status: true, msg: "room is full" });
-        else {
-            playerRoomMapping[roomId].players.push(username);
-            socket.join(id);
-            socket.emit('join-info', { status: true, msg: "joined room" });
+
+    socket.on('play-move', (data) => {
+        const { index, cell, turn, symbol, id } = data;
+        // console.log(turn, symbol)
+        if(cell=='.') {
+            if(turn && symbol=='X') {
+                io.to(id).emit('play-info', { status: true, turn: false, symbol: 'X', index });
+            }else if(!turn && symbol=='O') {
+                io.to(id).emit('play-info', { status: true, turn: true, symbol: 'O', index });
+            }else io.to(id).emit('play-info', { status: false, msg: "invalid move" });
         }
-    })
+
+    //    io.to(data.id).emit('play-info', {msg: "jo"})
+    });
+
+    socket.on("disconnect", () => {
+        const id = socketRoomMapping.get(socket.id);
+        const username = socketUsernameMapping.get(socket.id);
+        socketRoomMapping.delete(socket.id);
+        const idx = playerRoomMapping.findIndex((e) => { return e.id == id });
+
+        if (idx != -1) {
+            playerRoomMapping[idx].players = playerRoomMapping[idx].players.filter((e) => { return e != username });
+            if (playerRoomMapping[idx].players.length == 0) {
+                playerRoomMapping = playerRoomMapping.filter((e) => { return e.id != id });
+            }
+        }
+    });
 });
 
 io.listen(wsPort);

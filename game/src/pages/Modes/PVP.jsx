@@ -28,9 +28,6 @@ const PVP = () => {
     }
   }
 
-  console.log(cnt)
-  // console.log(win, winGrid)
-
   return (
     <div className='bg-[#1e1e20] w-[100vw] h-[100vh] flex flex-col items-center justify-center'>
       <div className='w-[100%] text-center flex flex-col'><span>{win == '.' ? turn ? "X Turn" : "O Turn" : <span className='text-white text-[4rem]'>{win == 'X' ? "X Won" : "O Won"}</span>}</span><span>{cnt == 9 && win == '.' ? "Draw" : ""}</span></div>

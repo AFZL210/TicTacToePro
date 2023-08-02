@@ -1,23 +1,17 @@
-import React, { useEffect, useCallback } from 'react'
+import React, { useEffect, useCallback, useState } from 'react'
 import { Link } from 'react-router-dom'
 import Button from '../components/Button'
 import Input from '../components/Input';
 import { GameProvider } from '../providers/GameContext';
 import { useSocket } from '../providers/SocketProvider';
+import { useNavigate } from 'react-router-dom';
 
 const Home = (props) => {
 
-    const { socket } = useSocket();
     const toggleDialogBox = (box) => setDialogBox(box);
     const {
         username, username2, setUsername, setUsername2, dialogBox, setDialogBox, setRoomId, roomId
     } = GameProvider();
-
-    useCallback(() => {
-        const handleJoinRoom = () => {
-            socket.emit('join-room', { id: roomId, username });
-        }
-    }, [])
 
     return (
         <div className='w-[100vw] h-[100vh] bg-[#1e1e20] flex items-center justify-center'>
@@ -42,17 +36,28 @@ const Home = (props) => {
 const JoinCreateRoom = (props) => {
 
     const { socket } = useSocket();
-
-    // const handleJoinRoom = () => {
-    //     socket.emit('join-room', {id: props.roomId, username: props.username});
-    // }
+    const navigate = useNavigate();
+    const { setTurn, setSymbol } = GameProvider();
 
     const handleJoinRoom = useCallback(() => {
         socket.emit('join-room', { id: props.roomId, username: props.username });
+        setTurn(false);
+        setSymbol('O');
     }, [socket, props.roomId, props.username])
 
+    const handleCreateRoom = useCallback(() => {
+        socket.emit('create-room', { username: props.username2 });
+        setTurn(true);
+        setSymbol('X');
+    }, [socket, props.username2])
+
     useEffect(() => {
-        socket.on('join-info', (data) => console.log(data))
+        socket.on('join-info', (data) => {
+            // alert(data.msg);
+            if (data.status) {
+                navigate(`/room/${data.id}`);
+            }
+        });
     }, [socket])
 
     return (
@@ -67,7 +72,7 @@ const JoinCreateRoom = (props) => {
             <h1 className='mt-5'>Create Room</h1>
             <div className='w-[100%] flex flex-col items-center gap-4 mt-4'>
                 <Input placeholder="username" value={props.username2} setValue={props.setUsername2} />
-                <Button title="Create" />
+                <Button title="Create" onClickHandler={handleCreateRoom} type="btn" />
             </div>
 
             <div className='mt-5'><Link to={"/room/pvp"}><Button title="Single Device" /></Link></div>
