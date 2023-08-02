@@ -70,7 +70,6 @@ io.on('connection', (socket) => {
 
     socket.on('play-move', (data) => {
         const { index, cell, turn, symbol, id } = data;
-        // console.log(turn, symbol)
         if(cell=='.') {
             if(turn && symbol=='X') {
                 io.to(id).emit('play-info', { status: true, turn: false, symbol: 'X', index });
@@ -78,8 +77,6 @@ io.on('connection', (socket) => {
                 io.to(id).emit('play-info', { status: true, turn: true, symbol: 'O', index });
             }else io.to(id).emit('play-info', { status: false, msg: "invalid move" });
         }
-
-    //    io.to(data.id).emit('play-info', {msg: "jo"})
     });
 
     socket.on("disconnect", () => {
