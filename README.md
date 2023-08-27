@@ -71,7 +71,6 @@ Start the server and client
 
 # TODO List
 
-- [x] Implemented TicTacBoard
-- [x] Implemented same device pvp
-- [x] added web socket for pvp mode
-- [ ] Fix multiplayer 1st move issue
+- [x] Implement TicTacBoard
+- [x] Implement same device pvp
+- [x] add pvp mode
