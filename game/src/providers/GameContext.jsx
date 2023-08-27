@@ -13,7 +13,7 @@ export const GameContextProvider = (props) => {
     const [roomId, setRoomId] = useState("");
     const [turn, setTurn] = useState(true);
     const [symbol, setSymbol] = useState("X");
-    
+
 
     return (
         <GameContext.Provider value={{ username, setUsername, username2, setUsername2, difficult, setDifficulty, dialogBox, setDialogBox, roomId, setRoomId, turn, setTurn, symbol, setSymbol }}>{props.children}</GameContext.Provider>

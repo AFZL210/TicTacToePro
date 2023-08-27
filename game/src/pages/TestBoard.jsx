@@ -8,7 +8,6 @@ const TestBoard = () => {
     const [currentPlayerTurn, setCurrentPlayerTurn] = useState(true);
 
     const updateMark = (idx) => {
-        console.log("click", idx)
         let arr = marks;
         if (arr[idx] === "." && turn === currentPlayerTurn) {
             turn ? arr[idx] = "X" : arr[idx] = "O";

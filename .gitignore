@@ -1,3 +1,6 @@
 game/.env
 server/.env
 temp.txt
+bot/node_modules
+game/node_modules
+server/node_modules

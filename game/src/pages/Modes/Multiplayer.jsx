@@ -22,7 +22,6 @@ const Multiplayer = () => {
   useEffect(() => {
     socket.on('play-info', (data) => {
       if(data.status) {
-        console.log(data)
         const { index, symbol, turn } = data;
         setTurn(turn);
         let arr = marks;

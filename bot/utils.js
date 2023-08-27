@@ -12,16 +12,33 @@ const wins = [
 export const checkWin = (arr) => {
     let winner = '.';
     let winnerGrid = [];
-    
-    for(let i=0; i<8; i++) {
+
+    for (let i = 0; i < 8; i++) {
         let e = wins[i];
         let i1 = e[0], i2 = e[1], i3 = e[2];
 
-        if(arr[i1]==arr[i2] && arr[i2]==arr[i3] && arr[i1]!=='.') {
+        if (arr[i1] == arr[i2] && arr[i2] == arr[i3] && arr[i1] !== '.') {
             winner = arr[i1];
             winnerGrid = e;
         }
     }
 
-    return {winner, winnerGrid};
+    return { winner, winnerGrid };
+}
+
+export const genRand = (start, end) => {
+    return Math.floor(Math.random() * (end - start + 1)) + start;
+}
+
+export const makeMarks = (marks) => {
+    const newMarks = marks.map((element, index) => (element !== 'X' && element !== 'O') ? index : -1)
+        .filter(index => index !== -1);
+    return newMarks;
+}
+
+export const nextMoveIndex = (marks) => {
+    let n = marks.length;
+    let nextMoveIndex = genRand(0, n-1);
+
+    return nextMoveIndex;
 }

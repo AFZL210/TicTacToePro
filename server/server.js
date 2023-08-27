@@ -70,12 +70,12 @@ io.on('connection', (socket) => {
 
     socket.on('play-move', (data) => {
         const { index, cell, turn, symbol, id } = data;
-        if(cell=='.') {
-            if(turn && symbol=='X') {
+        if (cell == '.') {
+            if (turn && symbol == 'X') {
                 io.to(id).emit('play-info', { status: true, turn: false, symbol: 'X', index });
-            }else if(!turn && symbol=='O') {
+            } else if (!turn && symbol == 'O') {
                 io.to(id).emit('play-info', { status: true, turn: true, symbol: 'O', index });
-            }else io.to(id).emit('play-info', { status: false, msg: "invalid move" });
+            } else io.to(id).emit('play-info', { status: false, msg: "invalid move" });
         }
     });
 
