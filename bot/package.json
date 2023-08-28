@@ -1,6 +1,6 @@
 {
   "name": "@afzl210/tictac-bot",
-  "version": "1.0.2",
+  "version": "1.0.6",
   "description": "tic-tac bot",
   "main": "index.js",
   "type": "module",
