@@ -37,6 +37,15 @@ const PvBot = () => {
     if (difficult === 'easy' && currentPlayerTurn == false) {
       let nextMoveIndex = randomBot(marks);
       updateMark(nextMoveIndex);
+    } else if (difficult === 'medium' && currentPlayerTurn == false) {
+      let nextMoveIndex = oneLayerBot(marks);
+      updateMark(nextMoveIndex);
+    } else if (difficult === 'hard' && currentPlayerTurn == false) {
+      let nextMoveIndex = twoLayerBot(marks);
+      updateMark(nextMoveIndex);
+    } else if (difficult == 'impossible' && currentPlayerTurn == false) {
+      let nextMoveIndex = minMaxBot(marks);
+      updateMark(nextMoveIndex);
     }
   }, [currentPlayerTurn])
 

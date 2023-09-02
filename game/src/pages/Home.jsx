@@ -88,6 +88,7 @@ const PlayerVsBot = (props) => {
                 <Link to={"/room/pvb/easy"}><Button title="Easy" /></Link>
                 <Link to={"/room/pvb/medium"}><Button title="Medium" /></Link>
                 <Link to={"/room/pvb/hard"}><Button title="Hard" /></Link>
+                <Link to={"/room/pvb/impossible"}><Button title="Impossible" /></Link>
             </div>
         </div>
     )
