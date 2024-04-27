@@ -20,17 +20,6 @@ let playerRoomMapping = [];
 const socketRoomMapping = new Map();
 const socketUsernameMapping = new Map();
 
-app.get('/room', (req, res) => {
-    res.json(playerRoomMapping);
-})
-
-app.get('/printmap', (req, res) => {
-    socketRoomMapping.forEach((value, key) => {
-        console.log(key, "-->", value);
-    })
-    res.send("printed");
-})
-
 const generateRandom = (range) => {
     return Math.floor((Math.random() * range) + 1);
 }
