@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { TicTacToeBoard } from '../../components/TicTacToeBoard'
-import { checkWin, nextMoveIndex } from '../../../../bot';
-import { oneLayerBot } from '../../../../bot/one-layer-bot';
-import { randomBot } from '../../../../bot/random-bot';
-import { twoLayerBot } from '../../../../bot/two-layer-bot';
-import { minMaxBot } from '../../../../bot/pro-minmax-bot';
+import { checkWin, nextMoveIndex } from '../../bot';
+import { oneLayerBot } from '../../bot/one-layer-bot';
+import { randomBot } from '../../bot/random-bot';
+import { twoLayerBot } from '../../bot/two-layer-bot';
+import { minMaxBot } from '../../bot/pro-minmax-bot';
 import { GameProvider } from '../../providers/GameContext';
 
 const PvBot = () => {

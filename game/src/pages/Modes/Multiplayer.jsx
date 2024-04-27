@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import { TicTacToeBoard } from '../../components/TicTacToeBoard'
-import { checkWin } from "../../../../bot/utils.js";
+import { checkWin } from "../../bot/utils";
 import { GameProvider } from '../../providers/GameContext';
 import { useSocket } from '../../providers/SocketProvider';
 import { useParams } from 'react-router-dom'

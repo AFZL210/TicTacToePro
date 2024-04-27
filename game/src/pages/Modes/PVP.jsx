@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { TicTacToeBoard } from '../../components/TicTacToeBoard'
-import { checkWin } from "../../../../bot/utils.js";
+import { checkWin } from "../../bot/utils";
 
 const PVP = () => {
 
