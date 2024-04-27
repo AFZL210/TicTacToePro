@@ -9,7 +9,7 @@ import { GameProvider } from '../../providers/GameContext';
 
 const PvBot = () => {
 
-  const { difficult } = GameProvider();
+  const { difficulty } = GameProvider();
   const [marks, setMarks] = useState(new Array(9).fill("."));
   const [turn, setTurn] = useState(true);
   const [currentPlayerTurn, setCurrentPlayerTurn] = useState(true);
@@ -34,16 +34,18 @@ const PvBot = () => {
   }
 
   useEffect(() => {
-    if (difficult === 'easy' && currentPlayerTurn == false) {
+    console.log(difficulty)
+    if (difficulty === 'easy' && currentPlayerTurn == false) {
       let nextMoveIndex = randomBot(marks);
       updateMark(nextMoveIndex);
-    } else if (difficult === 'medium' && currentPlayerTurn == false) {
+    } else if (difficulty === 'medium' && currentPlayerTurn == false) {
       let nextMoveIndex = oneLayerBot(marks);
       updateMark(nextMoveIndex);
-    } else if (difficult === 'hard' && currentPlayerTurn == false) {
+    } else if (difficulty === 'hard' && currentPlayerTurn == false) {
       let nextMoveIndex = twoLayerBot(marks);
       updateMark(nextMoveIndex);
-    } else if (difficult == 'impossible' && currentPlayerTurn == false) {
+    } else if (difficulty == 'impossible' && currentPlayerTurn == false) {
+      console.log(marks);
       let nextMoveIndex = minMaxBot(marks);
       updateMark(nextMoveIndex);
     }

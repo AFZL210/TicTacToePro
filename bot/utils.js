@@ -22,7 +22,6 @@ export const checkWin = (arr) => {
             winnerGrid = e;
         }
     }
-
     return { winner, winnerGrid };
 }
 

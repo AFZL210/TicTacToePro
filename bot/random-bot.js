@@ -5,7 +5,5 @@ export const randomBot = (marks) => {
     let n = marks.lenght;
     let nextMoveIndex = helper.nextMoveIndex(marks);
 
-    console.log(nextMoveIndex)
-
     return marks[nextMoveIndex];
 }

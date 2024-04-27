@@ -81,14 +81,15 @@ const JoinCreateRoom = (props) => {
 }
 
 const PlayerVsBot = (props) => {
+    const { setDifficulty } = GameProvider();
     return (
         <div className='w-[100%] flex flex-col items-center'>
             <h1>Select Difficulty</h1>
             <div className='w-[100%] flex flex-col items-center gap-4 mt-[10%]'>
-                <Link to={"/room/pvb/easy"}><Button title="Easy" /></Link>
-                <Link to={"/room/pvb/medium"}><Button title="Medium" /></Link>
-                <Link to={"/room/pvb/hard"}><Button title="Hard" /></Link>
-                <Link to={"/room/pvb/impossible"}><Button title="Impossible" /></Link>
+                <Link to={"/room/pvb/easy"} onClick={() => setDifficulty('easy')}><Button title="Easy" /></Link>
+                <Link to={"/room/pvb/medium"} onClick={() => setDifficulty('medium')}><Button title="Medium" /></Link>
+                <Link to={"/room/pvb/hard"} onClick={() => setDifficulty('hard')}><Button title="Hard" /></Link>
+                <Link to={"/room/pvb/impossible"} onClick={() => setDifficulty('impossible')}><Button title="Impossible" /></Link>
             </div>
         </div>
     )

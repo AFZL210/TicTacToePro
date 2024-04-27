@@ -17,8 +17,6 @@ const TestBoard = () => {
         }
     }
 
-    console.log(marks)
-
     return (
         <div className='text-black w-[100vw] h-[100vh] flex items-center justify-center'>
             <span className='text-black'>{turn ? "X Turn" : "O Turn"}</span>
