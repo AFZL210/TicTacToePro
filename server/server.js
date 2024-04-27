@@ -1,14 +1,20 @@
 import express from "express";
 import cors from "cors";
 import { Server } from "socket.io";
+import http from 'http';
 const app = express();
-const httPort = 5000;
-const wsPort = 5001;
+const wsPort = 5000;
 const RANGE = 1000000;
 
 app.use(cors({ origin: "*" }));
 app.use(express.json());
-const io = new Server({ cors: true });
+const server = http.createServer(app);
+const io = new Server(server, {
+  cors: {
+    origin: "*",
+    methods: ["GET", "POST"],
+  },
+});
 
 let playerRoomMapping = [];
 const socketRoomMapping = new Map();
@@ -94,8 +100,6 @@ io.on('connection', (socket) => {
     });
 });
 
-io.listen(wsPort);
-app.listen(httPort, () => {
-    console.log(`http server running on port ${httPort}`);
+server.listen(wsPort, () => {
     console.log(`ws server running on port ${wsPort}`);
 });
