@@ -17,7 +17,7 @@ https://github.com/AFZL210/TicTacToePro/assets/79896602/87286756-78eb-4b8f-b518-
 
 
 ## Bot Implementation
-[Documentation](https://en.wikipedia.org/wiki/Minimax)
+[Learn about minimax algorithm](https://en.wikipedia.org/wiki/Minimax)
 ![ZXEdz](https://github.com/AFZL210/TicTacToePro/assets/79896602/039f0066-c6bd-400f-8186-cc53e41ca06c)
 
 
