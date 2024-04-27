@@ -34,7 +34,6 @@ const PvBot = () => {
   }
 
   useEffect(() => {
-    console.log(difficulty)
     if (difficulty === 'easy' && currentPlayerTurn == false) {
       let nextMoveIndex = randomBot(marks);
       updateMark(nextMoveIndex);
@@ -45,7 +44,6 @@ const PvBot = () => {
       let nextMoveIndex = twoLayerBot(marks);
       updateMark(nextMoveIndex);
     } else if (difficulty == 'impossible' && currentPlayerTurn == false) {
-      console.log(marks);
       let nextMoveIndex = minMaxBot(marks);
       updateMark(nextMoveIndex);
     }

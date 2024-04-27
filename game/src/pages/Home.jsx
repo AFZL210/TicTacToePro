@@ -20,7 +20,6 @@ const Home = (props) => {
                 <div className='w-[100%] h-[100%] flex flex-col items-center gap-5 mt-6'>
                     <Button title="Player vs Player" toggle={toggleDialogBox} togleOption="pvp" type="toggle" />
                     <Button title="Player vs Bot" toggle={toggleDialogBox} togleOption="pvb" type="toggle" />
-                    <Button title="Watch Bot Fight" toggle={toggleDialogBox} togleOption="bvb" type="toggle" />
                 </div>
                 {dialogBox !== null && <div className='absolute w-[100%] h-[100%] top-0 bg-black flex flex-col'>
                     <div className='w-[100%] text-right px-4 py-4 '><span onClick={() => setDialogBox(null)} className='w-[2.2rem] cursor-pointer text-[#fff] text-[1.2rem] rounded-full'>X</span></div>
@@ -90,19 +89,6 @@ const PlayerVsBot = (props) => {
                 <Link to={"/room/pvb/medium"} onClick={() => setDifficulty('medium')}><Button title="Medium" /></Link>
                 <Link to={"/room/pvb/hard"} onClick={() => setDifficulty('hard')}><Button title="Hard" /></Link>
                 <Link to={"/room/pvb/impossible"} onClick={() => setDifficulty('impossible')}><Button title="Impossible" /></Link>
-            </div>
-        </div>
-    )
-}
-
-const BotVsBot = (props) => {
-    return (
-        <div className='w-[100%] flex flex-col items-center'>
-            <h1>Select Difficulty</h1>
-            <div className='w-[100%] flex flex-col items-center gap-4 mt-[10%]'>
-                <Button title="Easy" />
-                <Button title="Medium" />
-                <Button title="Hard" />
             </div>
         </div>
     )

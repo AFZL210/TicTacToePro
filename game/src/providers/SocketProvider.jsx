@@ -8,8 +8,9 @@ export const useSocket = () => {
 }
 
 const SocketProvider = (props) => {
-
-  const socket = useMemo(() => io('http://localhost:5001'));
+  const socketUrl = import.meta.env.VITE_SOCKET_URL;
+  console.log(socketUrl)
+  const socket = useMemo(() => io(socketUrl));
 
   return (
     <SocketContext.Provider value={{ socket }}>{props.children}</SocketContext.Provider>
